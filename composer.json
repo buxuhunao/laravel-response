@@ -1,0 +1,52 @@
+{
+    "name": "three/laravel-response",
+    "description": "Laravel api response data format.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "buxuhunao",
+            "email": "i@ihao.cc"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "illuminate/container": "^11.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^2.23",
+        "laravel/pint": "^1.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "Three\\LaravelResponse\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Three\\LaravelResponse\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Three\\LaravelResponse\\ServiceProvider"
+            ],
+            "aliases": {
+                "Response": "Three\\LaravelResponse\\Support\\Facades\\Response"
+            }
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "style": "vendor/bin/pint"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable" : true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
