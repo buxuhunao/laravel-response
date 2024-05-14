@@ -158,17 +158,15 @@ public function array()
                 "email": "kassandra.lueilwitz@example.net"
             }
         ],
-        "meta": {
-            "pagination": {
-                "count": 5,
-                "per_page": 5,
-                "current_page": 1,
-                "total": 12,
-                "total_pages": 3,
-                "links": {
-                    "previous": null,
-                    "next": "http://laravel-api.test/api/users/paginate?page=2"
-                }
+        "pagination": {
+            "count": 5,
+            "per_page": 5,
+            "current_page": 1,
+            "total": 12,
+            "total_pages": 3,
+            "links": {
+                "previous": null,
+                "next": "http://laravel-api.test/api/users/paginate?page=2"
             }
         }
     },
@@ -208,15 +206,13 @@ public function array()
                 "email": "kassandra.lueilwitz@example.net"
             }
         ],
-        "meta": {
-            "pagination": {
-                "count": 5,
-                "per_page": 5,
-                "current_page": 1,
-                "links": {
-                    "previous": null,
-                    "next": "http://laravel-api.test/api/users/simple-paginate?page=2"
-                }
+        "pagination": {
+            "count": 5,
+            "per_page": 5,
+            "current_page": 1,
+            "links": {
+                "previous": null,
+                "next": "http://laravel-api.test/api/users/simple-paginate?page=2"
             }
         }
     },
