@@ -151,13 +151,9 @@ class Format implements ResponseFormat
     /**
      * Format http status description.
      */
-    protected function formatStatus(int $statusCode): string
+    protected function formatStatus(int $statusCode): bool
     {
-        return match (true) {
-            ($statusCode >= 400 && $statusCode <= 499) => 'error',// client error
-            ($statusCode >= 500 && $statusCode <= 599) => 'fail',// service error
-            default => 'success'
-        };
+        return $statusCode < 400;
     }
 
     /**
