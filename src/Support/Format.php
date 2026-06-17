@@ -68,7 +68,7 @@ class Format implements ResponseFormat
                 'code' => $this->formatBusinessCode($code),
                 'message' => $this->formatMessage($this->formatBusinessCode($code), $message),
                 'data' => $this->formatData($data),
-                'error' => $this->formatError($error),
+                'error' => $this->statusCode >= 400 ? $this->formatError($error) : null,
             ]);
         });
     }
@@ -199,26 +199,26 @@ class Format implements ResponseFormat
             ],
             $collection instanceof LengthAwarePaginator => [
                 'pagination' => [
-                    'count' => $collection->lastItem(),
+//                    'count' => $collection->lastItem(),
                     'per_page' => $collection->perPage(),
-                    'current_page' => $collection->currentPage(),
+                    'page' => $collection->currentPage(),
                     'total' => $collection->total(),
                     'total_pages' => $collection->lastPage(),
-                    'links' => array_filter([
-                        'previous' => $collection->previousPageUrl(),
-                        'next' => $collection->nextPageUrl(),
-                    ]),
+//                    'links' => array_filter([
+//                        'previous' => $collection->previousPageUrl(),
+//                        'next' => $collection->nextPageUrl(),
+//                    ]),
                 ],
             ],
             $collection instanceof Paginator => [
                 'pagination' => [
-                    'count' => $collection->lastItem(),
+//                    'count' => $collection->lastItem(),
                     'per_page' => $collection->perPage(),
-                    'current_page' => $collection->currentPage(),
-                    'links' => array_filter([
-                        'previous' => $collection->previousPageUrl(),
-                        'next' => $collection->nextPageUrl(),
-                    ]),
+                    'page' => $collection->currentPage(),
+//                    'links' => array_filter([
+//                        'previous' => $collection->previousPageUrl(),
+//                        'next' => $collection->nextPageUrl(),
+//                    ]),
                 ],
             ],
             default => [],
@@ -238,6 +238,8 @@ class Format implements ResponseFormat
      */
     protected function formatDataFields(array $data): array
     {
+        $data = array_filter($data, fn ($v) => ! is_null($v));
+
         return tap($data, function (&$item) {
             foreach ($this->config as $key => $config) {
                 if (! Arr::has($item, $key)) {

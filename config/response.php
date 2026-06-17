@@ -43,7 +43,7 @@ return [
             'status' => ['alias' => 'status', 'show' => false],
             'code' => ['alias' => 'code', 'show' => true],
             'message' => ['alias' => 'message', 'show' => true],
-            'error' => ['alias' => 'error', 'show' => false],
+            'error' => ['alias' => 'error', 'show' => true],
             'data' => ['alias' => 'data', 'show' => true],
             'data.data' => ['alias' => 'data.data', 'show' => true], // rows/items/list
             'meta' => ['alias' => 'meta', 'show' => false], // 分页时pagination是否用meta包裹
