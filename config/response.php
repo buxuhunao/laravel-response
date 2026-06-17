@@ -40,7 +40,7 @@ return [
         'class' => Format::class,
         'config' => [
             // key => config
-            'status' => ['alias' => 'status', 'show' => true],
+            'status' => ['alias' => 'status', 'show' => false],
             'code' => ['alias' => 'code', 'show' => true],
             'message' => ['alias' => 'message', 'show' => true],
             'error' => ['alias' => 'error', 'show' => true],

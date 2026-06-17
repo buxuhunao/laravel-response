@@ -68,7 +68,7 @@ class Format implements ResponseFormat
                 'code' => $this->formatBusinessCode($code),
                 'message' => $this->formatMessage($this->formatBusinessCode($code), $message),
                 'data' => $this->formatData($data),
-                'error' => $this->formatError($error),
+                'error' => $this->statusCode >= 400 ? $this->formatError($error) : null,
             ]);
         });
     }
@@ -135,7 +135,7 @@ class Format implements ResponseFormat
         $localizationKey = implode('.', [Config::get('response.locale', 'enums'), $code]);
 
         return match (true) {
-            !$message && Lang::has($localizationKey) => Lang::get($localizationKey),
+            ! $message && Lang::has($localizationKey) => Lang::get($localizationKey),
             default => $message
         };
     }
@@ -238,9 +238,11 @@ class Format implements ResponseFormat
      */
     protected function formatDataFields(array $data): array
     {
+        $data = array_filter($data, fn($v) => ! is_null($v));
+
         return tap($data, function (&$item) {
             foreach ($this->config as $key => $config) {
-                if (!Arr::has($item, $key)) {
+                if (! Arr::has($item, $key)) {
                     continue;
                 }
 
@@ -253,7 +255,7 @@ class Format implements ResponseFormat
                     $key = $alias;
                 }
 
-                if (!$show) {
+                if (! $show) {
                     $item = Arr::except($item, $key);
                 }
             }
