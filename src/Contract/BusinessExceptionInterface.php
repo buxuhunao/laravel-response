@@ -6,5 +6,7 @@ interface BusinessExceptionInterface
 {
     public function getBusinessCode(): int;
 
+    public function getMessage(): string;
+
     public function getData(): array;
 }

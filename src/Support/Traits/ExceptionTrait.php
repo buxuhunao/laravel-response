@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
 use Three\LaravelResponse\Contract\BusinessException;
+use Three\LaravelResponse\Contract\BusinessExceptionInterface;
 use Three\LaravelResponse\Support\Facades\Response;
 use Throwable;
 
@@ -25,7 +26,7 @@ trait ExceptionTrait
      */
     protected function prepareJsonResponse($request, $e)
     {
-        if ($e instanceof BusinessException) {
+        if ($e instanceof BusinessExceptionInterface) {
             return Response::success(
                 data: $e->getData(),
                 message: $e->getMessage(),
