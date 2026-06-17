@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
-use Three\LaravelResponse\Exceptions\BusinessException;
+use Three\LaravelResponse\Contract\BusinessException;
 use Three\LaravelResponse\Support\Facades\Response;
 use Throwable;
 
