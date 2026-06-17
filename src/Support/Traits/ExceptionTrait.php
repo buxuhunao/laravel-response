@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
+use Three\LaravelResponse\Exceptions\BusinessException;
 use Three\LaravelResponse\Support\Facades\Response;
 use Throwable;
 
@@ -24,6 +25,15 @@ trait ExceptionTrait
      */
     protected function prepareJsonResponse($request, $e)
     {
+        if ($e instanceof BusinessException) {
+            return Response::success(
+                data: $e->getData(),
+                message: $e->getMessage(),
+                code: $e->getBusinessCode()
+            );
+        }
+
+
         // 要求请求头 header 中包含 /json 或 +json，如：Accept:application/json
         // 或者是 ajax 请求，header 中包含 X-Requested-With：XMLHttpRequest;
         $exceptionConfig = Config::get('response.exception.'.get_class($e));
