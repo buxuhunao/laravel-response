@@ -8,15 +8,11 @@ use Three\LaravelResponse\Support\Facades\Format;
 trait JsonResponseTrait
 {
     /**
-     *  Respond with an accepted response and associate a location and/or content if provided.
+     * Alias of success method, no need to specify data parameter.
      */
-    public function accepted($data = [], string $message = '', string $location = ''): JsonResponse
+    public function ok(string $message = ''): JsonResponse
     {
-        return tap($this->success($data, $message, 202), function ($response) use ($location) {
-            if ($location) {
-                $response->header('Location', $location);
-            }
-        });
+        return $this->success(message: $message);
     }
 
     /**
@@ -32,6 +28,18 @@ trait JsonResponseTrait
     }
 
     /**
+     *  Respond with an accepted response and associate a location and/or content if provided.
+     */
+    public function accepted($data = [], string $message = '', string $location = ''): JsonResponse
+    {
+        return tap($this->success($data, $message, 202), function ($response) use ($location) {
+            if ($location) {
+                $response->header('Location', $location);
+            }
+        });
+    }
+
+    /**
      * Respond with a no content response.
      */
     public function noContent(string $message = ''): JsonResponse
@@ -40,20 +48,12 @@ trait JsonResponseTrait
     }
 
     /**
-     * Alias of success method, no need to specify data parameter.
-     */
-    public function ok(string $message = '', int|\BackedEnum $code = 200): JsonResponse
-    {
-        return $this->success(message: $message, code: $code);
-    }
-
-    /**
      * Alias of the successful method, no need to specify the message and data parameters.
      * You can use ResponseCodeEnum to localize the message.
      */
-    public function localize(int|\BackedEnum $code = 200): JsonResponse
+    public function localize(int $code = 200): JsonResponse
     {
-        return $this->ok(code: $code);
+        return $this->ok(message: $code);
     }
 
     /**
@@ -101,7 +101,7 @@ trait JsonResponseTrait
      *
      * @param null $errors
      */
-    public function fail(string $message = '', int|\BackedEnum $code = 500, $errors = null): JsonResponse
+    public function fail(string $message = '', int $code = 500, $errors = null): JsonResponse
     {
         return Format::data(message: $message, code: $code, error: $errors)->response();
     }
@@ -113,7 +113,19 @@ trait JsonResponseTrait
      *
      * @return JsonResponse
      */
-    public function success($data = [], string $message = '', int|\BackedEnum $code = 200)
+    public function success($data = [], string $message = '', $code = 0)
+    {
+        return Format::data(data: $data, message: $message, code: $code)->response();
+    }
+
+    /**
+     * Return a success response with business error.
+     *
+     * @param mixed $data
+     *
+     * @return JsonResponse
+     */
+    public function businessError(string $message, $data = [], $code = 1)
     {
         return Format::data(data: $data, message: $message, code: $code)->response();
     }

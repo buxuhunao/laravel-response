@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
 use Three\LaravelResponse\Contract\ResponseFormat;
 
 /**
- * @method static \Three\LaravelResponse\Support\Format data(mixed $data = null, string $message = '', int|\BackedEnum $code = 200, $error = null)
+ * @method static \Three\LaravelResponse\Support\Format data(mixed $data = null, string $message = '', int $code = 200, $error = null)
  * @method static array|null                               get()
  * @method static array                                    paginator(AbstractPaginator|AbstractCursorPaginator|Paginator $resource)
  * @method static array                                    resourceCollection(ResourceCollection $collection)

@@ -53,12 +53,12 @@ class Format implements ResponseFormat
      *
      * @param null $data
      * @param string $message
-     * @param int|\BackedEnum $code
+     * @param int $code
      * @param null $error
      *
      * @return Format
      */
-    public function data(mixed $data = null, string $message = '', int|\BackedEnum $code = 200, $error = null): static
+    public function data(mixed $data = null, string $message = '', int $code = 200, $error = null): static
     {
         return tap($this, function () use ($data, $message, $code, $error) {
             $this->statusCode = $this->formatStatusCode($this->formatBusinessCode($code), $data);
@@ -143,9 +143,9 @@ class Format implements ResponseFormat
     /**
      * Format business code.
      */
-    protected function formatBusinessCode(int|\BackedEnum $code): int
+    protected function formatBusinessCode(int $code): int
     {
-        return $code instanceof \BackedEnum ? $code->value : $code;
+        return $code;
     }
 
     /**
@@ -161,7 +161,13 @@ class Format implements ResponseFormat
      */
     protected function formatStatusCode(int $code, $oriData): int
     {
-        return (int) substr(is_null($oriData) ? (Config::get('response.error_code') ?: $code) : $code, 0, 3);
+        $businessCodes = Config::get('response.business_codes', [0, 1]);
+
+        if (in_array($code, $businessCodes, true)) {
+            return 200;
+        }
+
+        return (int) substr((string) $code, 0, 3);
     }
 
     /**

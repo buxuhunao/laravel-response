@@ -23,7 +23,7 @@ interface ResponseFormat
      *
      * @return $this
      */
-    public function data(mixed $data = null, string $message = '', int|\BackedEnum $code = 200, $error = null): static;
+    public function data(mixed $data = null, string $message = '', int $code = 200, $error = null): static;
 
     /**
      * Format paginator data.

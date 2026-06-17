@@ -6,18 +6,19 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
 /**
- * @method static JsonResponse accepted($data = null, string $message = '', string $location = '')
+ * @method static JsonResponse ok(string $message = '', int $code = 200)
  * @method static JsonResponse created($data = null, string $message = '', string $location = '')
+ * @method static JsonResponse accepted($data = null, string $message = '', string $location = '')
  * @method static JsonResponse noContent(string $message = '')
- * @method static JsonResponse localize(int|\BackedEnum $code = 200)
- * @method static JsonResponse ok(string $message = '', int|\BackedEnum $code = 200)
- * @method static JsonResponse success($data = null, string $message = '', int|\BackedEnum $code = 200)
+ * @method static JsonResponse localize(int $code = 200)
+ * @method static JsonResponse success($data = null, string $message = '', int $code = 200)
+ * @method static JsonResponse businessError($data = null, string $message = '', int $code = 200)
  * @method static JsonResponse errorBadRequest(?string $message = '')
  * @method static JsonResponse errorUnauthorized(string $message = '')
  * @method static JsonResponse errorForbidden(string $message = '')
  * @method static JsonResponse errorNotFound(string $message = '')
  * @method static JsonResponse errorMethodNotAllowed(string $message = '')
- * @method static JsonResponse fail(string $message = '', int|\BackedEnum $code = 500, $errors = null)
+ * @method static JsonResponse fail(string $message = '', int $code = 500, $errors = null)
  *
  * @see \Three\LaravelResponse\Response
  */
