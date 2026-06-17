@@ -68,7 +68,7 @@ class Format implements ResponseFormat
                 'code' => $this->formatBusinessCode($code),
                 'message' => $this->formatMessage($this->formatBusinessCode($code), $message),
                 'data' => $this->formatData($data),
-                'error' => $this->statusCode >= 400 ? $this->formatError($error) : null,
+                'error' => $this->formatError($error),
             ]);
         });
     }
@@ -238,8 +238,6 @@ class Format implements ResponseFormat
      */
     protected function formatDataFields(array $data): array
     {
-        $data = array_filter($data, fn($v) => ! is_null($v));
-
         return tap($data, function (&$item) {
             foreach ($this->config as $key => $config) {
                 if (! Arr::has($item, $key)) {
